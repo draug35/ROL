@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1131" viewBox="0 0 1600 1131" role="img" aria-labelledby="title desc">
+  <title id="title">Ficha de mesa de La Marea Roja</title>
+  <desc id="desc">Ficha imprimible de una pagina para la nave La Marea Roja, con estadisticas, armas, sistemas, interior y reglas de uso rapido.</desc>
+  <defs>
+    <style>
+      .page { fill: #f1eadf; }
+      .ink { fill: #1d252c; }
+      .muted { fill: #56606a; }
+      .red { fill: #8b2f27; }
+      .line { stroke: #27333d; stroke-width: 3; fill: none; }
+      .thin { stroke: #27333d; stroke-width: 1.4; fill: none; }
+      .box { fill: #fbf7ef; stroke: #27333d; stroke-width: 2; }
+      .dark { fill: #26323b; }
+      .soft { fill: #e3dbce; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0; }
+      .small-label { font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0; }
+      .text { font-family: Arial, Helvetica, sans-serif; font-size: 20px; letter-spacing: 0; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 17px; letter-spacing: 0; }
+      .tiny { font-family: Arial, Helvetica, sans-serif; font-size: 15px; letter-spacing: 0; }
+      .mono { font-family: "Courier New", monospace; font-size: 18px; font-weight: 700; letter-spacing: 0; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 82px; font-weight: 900; letter-spacing: 0; }
+      .subtitle { font-family: Arial, Helvetica, sans-serif; font-size: 25px; font-weight: 700; letter-spacing: 0; }
+      .section { font-family: Arial, Helvetica, sans-serif; font-size: 25px; font-weight: 900; letter-spacing: 0; }
+      .stat { font-family: Arial, Helvetica, sans-serif; font-size: 42px; font-weight: 900; letter-spacing: 0; }
+    </style>
+  </defs>
+
+  <rect class="page" width="1600" height="1131"/>
+  <rect x="28" y="28" width="1544" height="1075" class="line"/>
+  <rect x="45" y="45" width="1510" height="1041" class="thin"/>
+
+  <path d="M56 154 H646" class="thin"/>
+  <text x="62" y="112" class="title red">LA MAREA ROJA</text>
+  <text x="66" y="148" class="subtitle ink">G9 RIGGER-CLASS LIGHT FREIGHTER MODIFICADA</text>
+  <text x="66" y="183" class="text muted">Corellian Engineering Corporation · Nave de Rolan Kaine · Campaña Eclipse</text>
+
+  <g transform="translate(880 60)">
+    <path d="M0 86 L110 36 L468 36 L574 78 L646 104 L570 130 L470 168 L110 168 L0 118 Z" fill="#d8d2c7" stroke="#27333d" stroke-width="3"/>
+    <path d="M58 104 L130 62 H282 L324 83 H470 L586 107 L470 136 H326 L281 154 H130 Z" fill="#7f837f" stroke="#27333d" stroke-width="2"/>
+    <path d="M54 104 L130 62 H196 L174 154 H128 Z" fill="#2b3a44" stroke="#27333d" stroke-width="2"/>
+    <path d="M212 69 H290 L314 84 H458 L546 106 L458 126 H314 L288 143 H212 Z" fill="#a8a69d" stroke="#27333d" stroke-width="2"/>
+    <path d="M246 92 H506" stroke="#8b2f27" stroke-width="20" opacity="0.7"/>
+    <path d="M512 75 H628 V99 H512 Z M512 115 H628 V139 H512 Z" fill="#464b4c" stroke="#27333d" stroke-width="2"/>
+    <path d="M127 72 L178 72 L168 116 L110 116 Z" fill="#1e303d" stroke="#27333d" stroke-width="2"/>
+    <path d="M338 60 H394 M420 64 H478 M346 145 H410" stroke="#27333d" stroke-width="5"/>
+    <circle cx="89" cy="108" r="12" fill="#27333d"/>
+    <circle cx="610" cy="87" r="7" fill="#b96b3f"/>
+    <circle cx="610" cy="127" r="7" fill="#b96b3f"/>
+  </g>
+
+  <g transform="translate(55 230)">
+    <rect width="530" height="224" class="box"/>
+    <rect width="530" height="42" class="dark"/>
+    <text x="18" y="29" class="section" fill="#f1eadf">DATOS DE NAVE</text>
+    <text x="18" y="76" class="label ink">Clase</text><text x="185" y="76" class="text ink">Transporte espacial pequeño</text>
+    <text x="18" y="110" class="label ink">Longitud</text><text x="185" y="110" class="text ink">34,1 m</text>
+    <text x="18" y="144" class="label ink">Tripulación</text><text x="185" y="144" class="text ink">2 mínima · 4 recomendable</text>
+    <text x="18" y="178" class="label ink">Capacidad</text><text x="185" y="178" class="text ink">7 personas · 60 t de carga</text>
+    <text x="18" y="212" class="label ink">Consumibles</text><text x="185" y="212" class="text ink">1 mes / 4 personas · 2 semanas / 7</text>
+  </g>
+
+  <g transform="translate(610 230)">
+    <rect width="430" height="224" class="box"/>
+    <rect width="430" height="42" class="dark"/>
+    <text x="18" y="29" class="section" fill="#f1eadf">MOVIMIENTO</text>
+    <text x="22" y="92" class="label muted">Hiperimpulsor</text><text x="292" y="95" class="stat red">x3</text>
+    <text x="22" y="138" class="text ink">Reserva x15</text>
+    <text x="22" y="178" class="label muted">Velocidad espacial</text><text x="292" y="180" class="stat ink">7</text>
+    <text x="22" y="210" class="small muted">Ataque, 7 casillas por acción · Atmosférica 700 km/h</text>
+  </g>
+
+  <g transform="translate(1065 230)">
+    <rect width="480" height="224" class="box"/>
+    <rect width="480" height="42" class="dark"/>
+    <text x="18" y="29" class="section" fill="#f1eadf">COMBATE</text>
+    <text x="26" y="90" class="label muted">Iniciativa</text><text x="204" y="90" class="text ink">+3 normal · +5 Rolan</text>
+    <text x="26" y="126" class="label muted">Maniobra</text><text x="204" y="126" class="text ink">+2 normal · +4 Rolan</text>
+    <text x="26" y="164" class="label muted">Defensa</text><text x="204" y="164" class="text ink">21 · defensiva 23 · total 25</text>
+    <text x="26" y="202" class="label muted">Protección</text><text x="204" y="202" class="text ink">Escudos 50 RD 10 · Casco 140 RD 10</text>
+  </g>
+
+  <g transform="translate(55 490)">
+    <rect width="715" height="302" class="box"/>
+    <rect width="715" height="42" class="dark"/>
+    <text x="18" y="29" class="section" fill="#f1eadf">ARMAMENTO</text>
+    <line x1="18" y1="101" x2="697" y2="101" class="thin"/>
+    <line x1="18" y1="171" x2="697" y2="171" class="thin"/>
+    <line x1="18" y1="241" x2="697" y2="241" class="thin"/>
+    <text x="22" y="76" class="label ink">Cañones bláster pesados acoplados</text>
+    <text x="22" y="125" class="small muted">Torreta dorsal · Ataque +7 normal / +9 artillero diestro · Daño 5d10 x2 · Bocajarro, corto</text>
+    <text x="22" y="156" class="small ink">Uso: arma principal defensiva, cubrir retiradas y disuadir perseguidores.</text>
+    <text x="22" y="196" class="label ink">Cañón bláster pesado ventral</text>
+    <text x="22" y="225" class="small muted">Frontal / ventral limitado · Ataque +6 normal / +8 artillero diestro · Daño 4d10 x2</text>
+    <text x="22" y="266" class="label ink">Cañón láser rotatorio</text>
+    <text x="22" y="292" class="small muted">Trasero / dorsal parcial · Ataque +6 normal / +8 artillero · Daño 4d10 x2 · Multifuego -4</text>
+  </g>
+
+  <g transform="translate(795 490)">
+    <rect width="750" height="302" class="box"/>
+    <rect width="750" height="42" class="dark"/>
+    <text x="18" y="29" class="section" fill="#f1eadf">SISTEMAS Y MODIFICACIONES</text>
+    <g class="text">
+      <text x="24" y="80" class="label ink">Transpondedor de doble identidad</text>
+      <text x="24" y="108" class="small muted">Dos identidades mediocres pero creíbles. Controles: CD 15 rutinario, CD 20 imperial, CD 25 cruzado, CD 30 ISB.</text>
+      <text x="24" y="150" class="label ink">Sensores discretamente mejorados</text>
+      <text x="24" y="178" class="small muted">+2 a Informática para detectar naves, calor, energía o tráfico sospechoso en alcance corto/medio.</text>
+      <text x="24" y="220" class="label ink">Blindaje parcheado selectivo</text>
+      <text x="24" y="248" class="small muted">1 vez por combate: reduce 10 puntos de daño de casco tras RD. Después requiere Reparar CD 20 y 500 cr.</text>
+      <text x="24" y="288" class="label red">El Hueco Ciego</text>
+      <text x="210" y="288" class="small muted">Compartimento oculto. Buscar/Informática CD 25; CD 20 en revisión exhaustiva; CD 18 con sospecha previa.</text>
+    </g>
+  </g>
+
+  <g transform="translate(55 828)">
+    <rect width="480" height="210" class="box"/>
+    <rect width="480" height="42" class="dark"/>
+    <text x="18" y="29" class="section" fill="#f1eadf">INTERIOR</text>
+    <text x="22" y="78" class="small ink">1 Cabina · compacta y personalizada</text>
+    <text x="22" y="108" class="small ink">2 Compartimento común · mesa, bancos, cafetera</text>
+    <text x="22" y="138" class="small ink">3 Descanso · 1 litera doble, 2 plegables, 2 improvisables</text>
+    <text x="22" y="168" class="small ink">4 Bodega principal · carga, repuestos, tapadera</text>
+    <text x="22" y="198" class="small ink">5 Rincón de mantenimiento · piezas dudosas pero útiles</text>
+  </g>
+
+  <g transform="translate(560 828)">
+    <rect width="440" height="210" class="box"/>
+    <rect width="440" height="42" class="dark"/>
+    <text x="18" y="29" class="section" fill="#f1eadf">USO EN MESA</text>
+    <text x="22" y="78" class="small ink">Bueno: pasar desapercibida, esconder material, cubrir retirada.</text>
+    <text x="22" y="110" class="small ink">Malo: duelo frontal contra cazas, fama innecesaria, disparar antes de mentir.</text>
+    <text x="22" y="152" class="small-label red">Regla de carácter</text>
+    <text x="22" y="181" class="small muted">Tras 3 sesiones sin mantenimiento narrativo: -1 a Maniobra hasta dedicar tiempo, piezas y atención.</text>
+  </g>
+
+  <g transform="translate(1025 828)">
+    <rect width="520" height="210" class="box"/>
+    <rect width="520" height="42" class="dark"/>
+    <text x="18" y="29" class="section" fill="#f1eadf">DESGASTE RAPIDO</text>
+    <text x="24" y="75" class="small ink">1-3 Vibración de ascenso: -2 a Pilotar atmosférico exigente.</text>
+    <text x="24" y="104" class="small ink">4-6 Lectura térmica falsa: -2 a Informática de sensores.</text>
+    <text x="24" y="133" class="small ink">7-9 Compuerta atascada: Fuerza CD 15 o Reparar CD 12.</text>
+    <text x="24" y="162" class="small ink">10-12 Alimentación inestable: -2 a Reparar/Informática interna.</text>
+    <text x="24" y="191" class="small ink">16-18 Arranque frío lento: +1 asalto si estaba apagada.</text>
+  </g>
+
+  <g transform="translate(55 1060)">
+    <text x="0" y="0" class="mono muted">LEMA:</text>
+    <text x="70" y="0" class="text ink">No esta hecha para vencer. Esta hecha para volver.</text>
+    <text x="1015" y="0" class="mono muted">MANTENIMIENTO:</text>
+    <text x="1190" y="0" class="text ink">300 cr rutina · 750 cr tras persecucion/combate · +50% sin preguntas</text>
+  </g>
+
+  <circle cx="1485" cy="104" r="42" fill="none" stroke="#8b2f27" stroke-width="8"/>
+  <path d="M1485 60 L1497 101 L1536 104 L1497 116 L1485 158 L1473 116 L1434 104 L1473 101 Z" class="red"/>
+</svg>

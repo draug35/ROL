@@ -631,6 +631,35 @@
       font-size: 0.92rem;
     }
 
+    .sheet-card {
+      overflow: hidden;
+      padding: 0;
+      background: #f1eadf;
+    }
+
+    .sheet-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .sheet-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 16px;
+      border-top: 1px solid rgba(39, 51, 61, 0.24);
+      background: #1e2932;
+    }
+
+    .sheet-actions .button {
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .ficha-summary-source {
+      display: none;
+    }
+
     .checklist {
       padding: 0;
       margin: 0;
@@ -695,6 +724,11 @@
     }
 
     @media print {
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
+      }
+
       :root {
         --bg: #fff;
         --panel: #fff;
@@ -717,6 +751,7 @@
       nav.quick,
       .ship-silhouette,
       .ship-photo,
+      .footer,
       button {
         display: none !important;
       }
@@ -776,6 +811,30 @@
         display: none !important;
       }
 
+      body.print-sheet-only header.hero,
+      body.print-sheet-only main > section:not(#ficha-mesa) {
+        display: none !important;
+      }
+
+      body.print-sheet-only main {
+        padding: 0;
+      }
+
+      body.print-sheet-only .sheet-actions,
+      body.print-sheet-only #ficha-mesa .section-title {
+        display: none !important;
+      }
+
+      body.print-sheet-only .sheet-card {
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      body.print-sheet-only .sheet-card img {
+        width: 100%;
+      }
+
       a {
         color: #111;
         text-decoration: none;
@@ -792,9 +851,10 @@
         <div class="actions">
           <a class="button" href="../../../">Volver a Eclipse</a>
           <button onclick="window.print()">Imprimir / PDF</button>
+          <button onclick="printFicha()">Imprimir ficha</button>
           <button onclick="toggleAll(true)">Abrir todo</button>
           <button onclick="toggleAll(false)">Cerrar todo</button>
-          <button onclick="copyFicha()">Copiar ficha rápida</button>
+          <button onclick="copyFicha(this)">Copiar resumen</button>
         </div>
       </div>
 
@@ -817,6 +877,7 @@
             <a href="#interior">Interior</a>
             <a href="#averias">Averías</a>
             <a href="#mesa">Uso en mesa</a>
+            <a href="#ficha-mesa">Ficha mesa</a>
           </nav>
         </div>
 
@@ -1246,16 +1307,27 @@
       </div>
     </section>
 
-    <section>
-      <div class="card" id="ficha-copiable">
-        <h3>Ficha rápida copiable</h3>
-        <p class="mono">
-          LA MAREA ROJA · G9 Rigger-class light freighter modificada · Transporte espacial pequeño ·
-          Tripulación 2 · Pasajeros 5 · Capacidad real 7 personas · Carga 60 t · Consumibles 1 mes/4 personas o 2 semanas/7 personas ·
-          Hiperimpulsor x3, reserva x15 · Velocidad espacial ataque 7 casillas · Atmosférica 700 km/h ·
-          Iniciativa +3 normal / +5 Rolan · Maniobra +2 normal / +4 Rolan · Defensa 21, defensiva 23, total 25 ·
-          Escudos 50 RD 10 · Casco 140 RD 10 ·
-          Armas: blásteres pesados acoplados +7/+9, 5d10x2; bláster ventral +6/+8, 4d10x2; láser rotatorio +6/+8, 4d10x2, multifuego -4 ·
+    <section id="ficha-mesa">
+      <div class="section-title">
+        <h2>Ficha de mesa imprimible</h2>
+        <p>Una página horizontal para imprimir o abrir en una tablet durante la sesión.</p>
+      </div>
+
+      <div class="card sheet-card" id="ficha-copiable">
+        <img src="assets/ficha-la-marea-roja.svg" alt="Ficha imprimible de La Marea Roja con datos, combate, armamento, sistemas, interior y desgaste rápido.">
+        <div class="sheet-actions">
+          <button onclick="printFicha()">Imprimir solo la ficha</button>
+          <a class="button" href="assets/ficha-la-marea-roja.svg" target="_blank" rel="noopener">Abrir imagen</a>
+          <a class="button" href="assets/ficha-la-marea-roja.svg" download>Descargar SVG</a>
+          <button onclick="copyFicha(this)">Copiar resumen</button>
+        </div>
+        <p class="mono ficha-summary-source" id="ficha-texto">
+          LA MAREA ROJA. G9 Rigger modificada. Transporte espacial pequeño. Tripulación 2 mínima, 4 recomendable.
+          Capacidad real 7 personas. Carga 60 t. Consumibles 1 mes para 4 o 2 semanas para 7.
+          Hiperimpulsor x3, reserva x15. Velocidad espacial 7 casillas. Atmosférica 700 km/h.
+          Iniciativa +3 normal o +5 Rolan. Maniobra +2 normal o +4 Rolan. Defensa 21, defensiva 23, total 25.
+          Escudos 50 RD 10. Casco 140 RD 10. Armas: blásteres pesados acoplados +7/+9, 5d10x2;
+          bláster ventral +6/+8, 4d10x2; láser rotatorio +6/+8, 4d10x2, multifuego -4.
           Sistemas: doble transpondedor, sensores +2, blindaje selectivo, bodega modular, El Hueco Ciego.
         </p>
       </div>
@@ -1272,17 +1344,22 @@
       document.querySelectorAll("details").forEach(d => d.open = open);
     }
 
-    function copyFicha() {
-      const text = document.querySelector("#ficha-copiable p").innerText.trim();
+    function copyFicha(button) {
+      const text = document.querySelector("#ficha-texto").textContent.trim();
       navigator.clipboard.writeText(text).then(() => {
-        const btns = [...document.querySelectorAll("button")];
-        const b = btns.find(x => x.innerText.includes("Copiar"));
+        const b = button || [...document.querySelectorAll("button")].find(x => x.innerText.includes("Copiar"));
         const old = b.innerText;
-        b.innerText = "Ficha copiada";
+        b.innerText = "Resumen copiado";
         setTimeout(() => b.innerText = old, 1300);
       }).catch(() => {
-        alert("No se ha podido copiar automáticamente. Puedes seleccionar la ficha rápida al final del documento.");
+        alert("No se ha podido copiar automáticamente. Puedes abrir la imagen de ficha y copiar los datos desde ahí.");
       });
+    }
+
+    function printFicha() {
+      document.body.classList.add("print-sheet-only");
+      window.print();
+      setTimeout(() => document.body.classList.remove("print-sheet-only"), 250);
     }
   </script>
 </body>
