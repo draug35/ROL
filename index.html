@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Eclipse, campaña de rol.">
+    <title>Eclipse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Eclipse">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Eclipse</span>
+      </a>
+      <nav class="site-nav" aria-label="Secciones de Eclipse">
+        <a href="#archivo">Archivo</a>
+        <a href="campaigns/eclipse/nave/">Nave</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="eclipse-title">
+        <img class="hero-image" src="assets/eclipse-hero.png" alt="">
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Campaña de rol</p>
+          <h1 id="eclipse-title">Eclipse</h1>
+          <p class="hero-copy">
+            Un archivo vivo para la tripulación, sus rutas, sus heridas y todo lo que quede orbitando después de cada sesión.
+          </p>
+          <div class="hero-actions" aria-label="Accesos principales">
+            <a class="primary-link" href="campaigns/eclipse/nave/">Ver la nave</a>
+            <a class="secondary-link" href="#archivo">Abrir archivo</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-band" id="archivo" aria-labelledby="archivo-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <p class="eyebrow">Archivo de campaña</p>
+            <h2 id="archivo-title">Eclipse crece desde aquí</h2>
+          </div>
+
+          <div class="campaign-grid" aria-label="Secciones disponibles">
+            <article class="campaign-card campaign-card-featured">
+              <p class="card-kicker">Disponible</p>
+              <h3>Nave de los jugadores</h3>
+              <p>Ficha pública de la nave, sus sistemas y todo lo que la tripulación lleve a bordo.</p>
+              <a href="campaigns/eclipse/nave/">Entrar</a>
+            </article>
+
+            <article class="campaign-card">
+              <p class="card-kicker">Próximamente</p>
+              <h3>Tripulación</h3>
+              <p>Personajes, contactos, lealtades y marcas que importen en mesa.</p>
+            </article>
+
+            <article class="campaign-card">
+              <p class="card-kicker">Próximamente</p>
+              <h3>Bitácora</h3>
+              <p>Sesiones, pistas, consecuencias y decisiones que cambien el rumbo.</p>
+            </article>
+
+            <article class="campaign-card">
+              <p class="card-kicker">Próximamente</p>
+              <h3>Cartografía</h3>
+              <p>Sistemas, rutas, bases, anomalías y lugares donde conviene no quedarse.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
