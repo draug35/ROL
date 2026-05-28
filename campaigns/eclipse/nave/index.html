@@ -1,36 +1,1289 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Nave de los jugadores de la campaña Eclipse.">
-    <title>Nave | Eclipse</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../styles.css">
-    <link rel="stylesheet" href="nave.css">
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="../../../" aria-label="Eclipse">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Eclipse</span>
-      </a>
-      <nav class="site-nav" aria-label="Secciones de Eclipse">
-        <a href="../../../#archivo">Archivo</a>
-        <a href="./" aria-current="page">Nave</a>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Marea Roja · Nave de Rolan Kaine</title>
+  <style>
+    :root {
+      --bg: #070b10;
+      --bg2: #0d141d;
+      --panel: rgba(20, 29, 40, 0.92);
+      --panel2: rgba(14, 22, 31, 0.96);
+      --ink: #f3efe7;
+      --muted: #b7b0a3;
+      --soft: #d5c7af;
+      --red: #a92d2d;
+      --red2: #d44a3f;
+      --amber: #e0a84d;
+      --cyan: #77c7d9;
+      --line: rgba(255,255,255,0.13);
+      --shadow: rgba(0,0,0,0.45);
+      --radius: 8px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+    }
 
-    <main class="ship-page">
-      <section class="ship-shell" aria-labelledby="ship-title">
-        <p class="eyebrow">Nave de los jugadores</p>
-        <h1 id="ship-title">Eclipse</h1>
-        <div class="ship-placeholder">
-          <p>La nave espera sus planos.</p>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(196, 53, 47, 0.28), transparent 32%),
+        radial-gradient(circle at 85% 0%, rgba(119, 199, 217, 0.10), transparent 32%),
+        linear-gradient(135deg, #05070b 0%, #0a1118 42%, #14090a 100%);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.021) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 85%);
+      z-index: 0;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    header.hero {
+      padding: 44px 0 26px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--soft);
+      background: rgba(255,255,255,0.045);
+      backdrop-filter: blur(8px);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button, .button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+      color: var(--ink);
+      padding: 9px 13px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    button:hover, .button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(212, 74, 63, 0.75);
+      background: rgba(169,45,45,0.22);
+    }
+
+    .title-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .title-card {
+      background: linear-gradient(150deg, rgba(17,25,36,0.92), rgba(10,15,22,0.88));
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      padding: clamp(24px, 4vw, 42px);
+      box-shadow: 0 24px 80px var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .title-card::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -90px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,74,63,0.34), transparent 66%);
+      filter: blur(8px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.7rem, 8vw, 6.4rem);
+      line-height: 0.86;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      color: var(--soft);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin: 18px 0 0;
+      max-width: 850px;
+    }
+
+    .quote {
+      margin-top: 26px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--red2);
+      background: rgba(212, 74, 63, 0.08);
+      border-radius: 16px;
+      color: #f1dfcc;
+      font-family: var(--serif);
+      font-size: 1.2rem;
+    }
+
+    .ship-silhouette {
+      background:
+        radial-gradient(circle at 20% 10%, rgba(212,74,63,0.22), transparent 32%),
+        linear-gradient(145deg, rgba(12,18,26,0.95), rgba(5,9,13,0.95));
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      box-shadow: 0 24px 80px var(--shadow);
+      padding: 26px;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ship-silhouette::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      background:
+        linear-gradient(90deg, transparent 0 10%, rgba(255,255,255,0.08) 10% 11%, transparent 11%),
+        linear-gradient(transparent 0 30%, rgba(255,255,255,0.06) 30% 31%, transparent 31%);
+      opacity: 0.35;
+      border-radius: 18px;
+    }
+
+    .ship-shape {
+      position: relative;
+      margin: 48px auto 30px;
+      width: min(420px, 100%);
+      height: 160px;
+      filter: drop-shadow(0 24px 26px rgba(0,0,0,0.65));
+    }
+
+    .ship-body {
+      position: absolute;
+      left: 10%;
+      top: 42%;
+      width: 80%;
+      height: 34%;
+      background: linear-gradient(180deg, #39424c, #1d242d);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 100px 26px 26px 100px;
+      transform: skewX(-8deg);
+    }
+
+    .ship-body::before {
+      content: "";
+      position: absolute;
+      left: 18%;
+      top: -62%;
+      width: 44%;
+      height: 72%;
+      background: linear-gradient(180deg, #303945, #161d25);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 18px 28px 8px 8px;
+    }
+
+    .ship-nose {
+      position: absolute;
+      right: 1%;
+      top: 45%;
+      width: 22%;
+      height: 28%;
+      background: linear-gradient(180deg, #303945, #151a20);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+
+    .ship-wing {
+      position: absolute;
+      left: 32%;
+      top: 18%;
+      width: 45%;
+      height: 34%;
+      background: linear-gradient(160deg, #252d37, #111820);
+      clip-path: polygon(0 100%, 72% 0, 100% 28%, 36% 100%);
+      opacity: 0.92;
+    }
+
+    .ship-wing.bottom {
+      top: 68%;
+      transform: scaleY(-1);
+    }
+
+    .red-stripe {
+      position: absolute;
+      left: 24%;
+      top: 55%;
+      width: 48%;
+      height: 8px;
+      background: linear-gradient(90deg, transparent, var(--red2), transparent);
+      border-radius: 999px;
+      opacity: 0.85;
+    }
+
+    .engine {
+      position: absolute;
+      left: 3%;
+      top: 49%;
+      width: 18%;
+      height: 23%;
+      background: linear-gradient(90deg, #121820, #303945);
+      border-radius: 60px 8px 8px 60px;
+    }
+
+    .engine::before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: 22%;
+      width: 12px;
+      height: 56%;
+      border-radius: 50%;
+      background: rgba(119,199,217,0.75);
+      box-shadow: 0 0 22px rgba(119,199,217,0.8);
+    }
+
+    .callout {
+      position: relative;
+      z-index: 2;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .ship-photo {
+      background:
+        linear-gradient(180deg, rgba(7, 11, 16, 0.02), rgba(7, 11, 16, 0.78)),
+        #080b0f;
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      box-shadow: 0 24px 80px var(--shadow);
+      min-height: 360px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ship-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+    }
+
+    .ship-photo .callout {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      left: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius);
+      background: rgba(6, 9, 13, 0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    nav.quick {
+      margin-top: 28px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav.quick a {
+      color: var(--ink);
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.045);
+      font-size: 0.9rem;
+      transition: border-color .16s ease, background .16s ease;
+    }
+
+    nav.quick a:hover {
+      border-color: rgba(212,74,63,0.7);
+      background: rgba(212,74,63,0.14);
+    }
+
+    main {
+      padding-bottom: 60px;
+    }
+
+    section {
+      margin: 24px 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 40px 0 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 560px;
+      text-align: right;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.23);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      margin: 8px 0;
+      color: var(--muted);
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 104px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+    }
+
+    .stat span {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    .stat strong {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+      margin-top: 10px;
+    }
+
+    .stat small {
+      color: var(--soft);
+      margin-top: 7px;
+      display: block;
+    }
+
+    .red {
+      color: #ff7b70;
+    }
+
+    .cyan {
+      color: var(--cyan);
+    }
+
+    .amber {
+      color: var(--amber);
+    }
+
+    .compact-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      font-size: 0.96rem;
+    }
+
+    .compact-table th,
+    .compact-table td {
+      border-bottom: 1px solid rgba(255,255,255,0.11);
+      padding: 11px 12px;
+      vertical-align: top;
+    }
+
+    .compact-table th {
+      width: 36%;
+      color: var(--soft);
+      text-align: left;
+      font-weight: 800;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .compact-table tr:last-child th,
+    .compact-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .note {
+      border-left: 4px solid var(--amber);
+      background: rgba(224, 168, 77, 0.08);
+      color: #f2dfbd;
+    }
+
+    .warning {
+      border-left: 4px solid var(--red2);
+      background: rgba(212, 74, 63, 0.085);
+      color: #f0d6d2;
+    }
+
+    details {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 14px 38px rgba(0,0,0,0.2);
+    }
+
+    details + details {
+      margin-top: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 18px 20px;
+      font-weight: 900;
+      letter-spacing: 0;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      color: var(--red2);
+      font-size: 1.4rem;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .details-body {
+      padding: 0 20px 20px;
+      color: var(--muted);
+    }
+
+    .details-body p:first-child {
+      margin-top: 0;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      padding: 5px 9px;
+      color: var(--soft);
+      background: rgba(255,255,255,0.045);
+      font-size: 0.82rem;
+    }
+
+    .weapon {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .weapon::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: linear-gradient(var(--red2), transparent);
+    }
+
+    .weapon h3 {
+      padding-left: 8px;
+    }
+
+    .mono {
+      font-family: var(--mono);
+      letter-spacing: 0;
+    }
+
+    .visual-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .visual-grid.two {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    }
+
+    .visual-card {
+      margin: 0;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.23);
+    }
+
+    .visual-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 660px;
+      object-fit: cover;
+    }
+
+    .visual-card.contain img {
+      background: #d2ccc0;
+      object-fit: contain;
+    }
+
+    .visual-card figcaption {
+      padding: 13px 16px 15px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.11);
+      font-size: 0.92rem;
+    }
+
+    .checklist {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 10px 0 10px 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      position: relative;
+      color: var(--muted);
+    }
+
+    .checklist li:last-child {
+      border-bottom: 0;
+    }
+
+    .checklist li::before {
+      content: "▸";
+      position: absolute;
+      left: 6px;
+      color: var(--red2);
+    }
+
+    .footer {
+      margin-top: 42px;
+      border-top: 1px solid var(--line);
+      padding: 24px 0 60px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .print-only {
+      display: none;
+    }
+
+    @media (max-width: 920px) {
+      .title-grid,
+      .grid.two,
+      .grid.three,
+      .grid.four,
+      .visual-grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .section-title p {
+        text-align: left;
+      }
+
+      .ship-silhouette {
+        min-height: 300px;
+      }
+    }
+
+    @media print {
+      :root {
+        --bg: #fff;
+        --panel: #fff;
+        --panel2: #fff;
+        --ink: #111;
+        --muted: #333;
+        --soft: #222;
+        --line: #ccc;
+        --shadow: transparent;
+      }
+
+      body {
+        background: #fff;
+        color: #111;
+        font-size: 10.5pt;
+      }
+
+      body::before,
+      .actions,
+      nav.quick,
+      .ship-silhouette,
+      .ship-photo,
+      button {
+        display: none !important;
+      }
+
+      .wrap {
+        width: 100%;
+        margin: 0;
+      }
+
+      header.hero {
+        padding: 0 0 12px;
+      }
+
+      .title-grid,
+      .grid.two,
+      .grid.three,
+      .grid.four {
+        display: block;
+      }
+
+      .title-card,
+      .card,
+      details {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin-bottom: 10px;
+      }
+
+      h1 {
+        font-size: 38pt;
+      }
+
+      section {
+        margin: 14px 0;
+      }
+
+      details[open],
+      details {
+        display: block;
+      }
+
+      details:not([open]) .details-body {
+        display: block;
+      }
+
+      summary::after {
+        display: none;
+      }
+
+      .print-only {
+        display: block;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      a {
+        color: #111;
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="topbar">
+        <div class="pill">Archivo de jugador · Eclipse</div>
+        <div class="actions">
+          <a class="button" href="../../../">Volver a Eclipse</a>
+          <button onclick="window.print()">Imprimir / PDF</button>
+          <button onclick="toggleAll(true)">Abrir todo</button>
+          <button onclick="toggleAll(false)">Cerrar todo</button>
+          <button onclick="copyFicha()">Copiar ficha rápida</button>
         </div>
-      </section>
-    </main>
-  </body>
+      </div>
+
+      <div class="title-grid">
+        <div class="title-card">
+          <h1>La Marea Roja</h1>
+          <p class="subtitle">
+            G9 Rigger-class light freighter modificada. Nave de Rolan Kaine, refugio móvil,
+            carguero gris y último territorio propio de alguien que aprendió a no quedarse demasiado tiempo en ninguna parte.
+          </p>
+          <div class="quote">
+            No está hecha para vencer. Está hecha para volver.
+          </div>
+          <nav class="quick">
+            <a href="#resumen">Resumen</a>
+            <a href="#visuales">Imágenes</a>
+            <a href="#ficha">Ficha d20</a>
+            <a href="#armamento">Armamento</a>
+            <a href="#sistemas">Sistemas</a>
+            <a href="#interior">Interior</a>
+            <a href="#averias">Averías</a>
+            <a href="#mesa">Uso en mesa</a>
+          </nav>
+        </div>
+
+        <aside class="ship-photo" aria-label="Imagen exterior de La Marea Roja">
+          <img src="assets/la-marea-roja-exterior.png" alt="La Marea Roja, carguero ligero modificado sobre una plataforma espacial.">
+          <div class="callout">
+            <strong>Imagen pública:</strong> carguero civil cansado, poco glamuroso, lleno de parches.
+            <br>
+            <strong>Verdad útil:</strong> sensores decentes, compartimento oculto, casco más duro de lo que parece y dueño con mala costumbre de sobrevivir.
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="visuales">
+      <div class="section-title">
+        <h2>Archivo visual</h2>
+        <p>Referencia rápida para reconocer la nave por fuera y entender su distribución interior.</p>
+      </div>
+
+      <div class="visual-grid two">
+        <figure class="visual-card">
+          <img src="assets/la-marea-roja-exterior.png" alt="Vista exterior de La Marea Roja en un hangar lluvioso.">
+          <figcaption>Vista exterior: casco parcheado, franjas rojas gastadas y perfil de carguero ligero modificado.</figcaption>
+        </figure>
+
+        <figure class="visual-card contain">
+          <img src="assets/la-marea-roja-plano.png" alt="Plano técnico de La Marea Roja con vistas lateral, superior e interior.">
+          <figcaption>Plano de referencia: perfil, vista superior, distribución interior, zonas de carga y detalles de configuración.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="resumen">
+      <div class="section-title">
+        <h2>Resumen rápido</h2>
+        <p>Lo que el jugador necesita recordar sin bucear en motores, transpondedores y juntas térmicas.</p>
+      </div>
+
+      <div class="grid four">
+        <div class="card stat">
+          <span>Modelo</span>
+          <strong>G9 Rigger modificada</strong>
+          <small>Carguero ligero corelliano</small>
+        </div>
+        <div class="card stat">
+          <span>Tripulación</span>
+          <strong>2 mínima</strong>
+          <small>Funciona mejor con 4 puestos cubiertos</small>
+        </div>
+        <div class="card stat">
+          <span>Capacidad real</span>
+          <strong>7 personas</strong>
+          <small>Con incomodidad razonable</small>
+        </div>
+        <div class="card stat">
+          <span>Hiperimpulsor</span>
+          <strong>x3</strong>
+          <small>Reserva x15</small>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top:16px;">
+        <div class="card">
+          <h3>Fortalezas</h3>
+          <ul class="checklist">
+            <li>Pasa desapercibida: parece un carguero viejo sin importancia.</li>
+            <li>Aguanta más de lo que su aspecto promete.</li>
+            <li>Puede mover célula, equipo, tapadera comercial y carga sensible.</li>
+            <li>Tiene sensores discretamente mejorados.</li>
+            <li>Posee un compartimento oculto: El Hueco Ciego.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Debilidades</h3>
+          <ul class="checklist">
+            <li>No es rápida. Si compite por velocidad pura, mala noche.</li>
+            <li>No está diseñada para duelos serios contra naves militares.</li>
+            <li>Siempre necesita una pieza, un ajuste o una mentira administrativa.</li>
+            <li>Vivir siete personas dentro es posible, no agradable.</li>
+            <li>Cuanto más dispara, menos creíble resulta su tapadera civil.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="ficha">
+      <div class="section-title">
+        <h2>Ficha d20 Revised</h2>
+        <p>Versión pensada para jugar. Ajustada para que la nave sea útil, no invencible.</p>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Datos generales</h3>
+          <table class="compact-table">
+            <tr><th>Clase</th><td>Transporte espacial</td></tr>
+            <tr><th>Tamaño</th><td>Pequeño, 34,1 m</td></tr>
+            <tr><th>Tripulación</th><td>2 mínima; 4 recomendable</td></tr>
+            <tr><th>Pasajeros</th><td>5 adicionales; hasta 7 personas en total con incomodidad</td></tr>
+            <tr><th>Carga operativa</th><td>60 toneladas</td></tr>
+            <tr><th>Carga forzada</th><td>80 toneladas, sacrificando habitabilidad</td></tr>
+            <tr><th>Consumibles</th><td>1 mes para 4 personas; 2 semanas para 7</td></tr>
+            <tr><th>Hiperimpulsor</th><td>x3; reserva x15</td></tr>
+            <tr><th>Velocidad espacial</th><td>Ataque, 7 casillas por acción</td></tr>
+            <tr><th>Velocidad atmosférica</th><td>700 km/h; 12 casillas por acción</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Estadísticas de combate</h3>
+          <table class="compact-table">
+            <tr><th>Iniciativa, tripulación normal</th><td>+3</td></tr>
+            <tr><th>Iniciativa, Rolan al mando</th><td>+5</td></tr>
+            <tr><th>Maniobra, tripulación normal</th><td>+2</td></tr>
+            <tr><th>Maniobra, Rolan al mando</th><td>+4</td></tr>
+            <tr><th>Defensa</th><td>21</td></tr>
+            <tr><th>Volando defensivamente</th><td>Defensa 23</td></tr>
+            <tr><th>Defensa total</th><td>Defensa 25</td></tr>
+            <tr><th>Escudos</th><td>50 puntos; RD 10</td></tr>
+            <tr><th>Casco</th><td>140 puntos; RD 10</td></tr>
+            <tr><th>Precio estimado</th><td>85.000 créditos usada; 130.000 si se conocen las modificaciones</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card note" style="margin-top:16px;">
+        <h3>Lectura rápida para el jugador</h3>
+        <p>
+          La Marea Roja no está equilibrada para ganar batallas espaciales largas.
+          Está equilibrada para escapar, ocultarse, improvisar y sobrevivir lo suficiente
+          como para que alguien pueda decir: “no preguntes, arranca”.
+        </p>
+      </div>
+    </section>
+
+    <section id="armamento">
+      <div class="section-title">
+        <h2>Armamento</h2>
+        <p>Puede defenderse y cubrir una retirada. Si intenta comportarse como una corbeta, el universo le dará una clase magistral de humildad.</p>
+      </div>
+
+      <div class="grid three">
+        <div class="card weapon">
+          <h3>Cañones bláster pesados acoplados</h3>
+          <p><strong>Sector:</strong> torreta dorsal.</p>
+          <p><strong>Ataque, tripulación normal:</strong> +7.</p>
+          <p><strong>Ataque, artillero diestro:</strong> +9.</p>
+          <p><strong>Daño:</strong> 5d10 x2.</p>
+          <p><strong>Alcance:</strong> bocajarro, corto.</p>
+          <div class="tag-row">
+            <span class="tag">Arma principal</span>
+            <span class="tag">Defensiva</span>
+          </div>
+        </div>
+
+        <div class="card weapon">
+          <h3>Cañón bláster pesado ventral</h3>
+          <p><strong>Sector:</strong> frontal / ventral limitado.</p>
+          <p><strong>Ataque, tripulación normal:</strong> +6.</p>
+          <p><strong>Ataque, artillero diestro:</strong> +8.</p>
+          <p><strong>Daño:</strong> 4d10 x2.</p>
+          <p><strong>Alcance:</strong> bocajarro, corto.</p>
+          <div class="tag-row">
+            <span class="tag">Perseguidores</span>
+            <span class="tag">Obstáculos</span>
+          </div>
+        </div>
+
+        <div class="card weapon">
+          <h3>Cañón láser rotatorio</h3>
+          <p><strong>Sector:</strong> trasero / dorsal parcial.</p>
+          <p><strong>Ataque, tripulación normal:</strong> +6.</p>
+          <p><strong>Ataque, artillero diestro:</strong> +8.</p>
+          <p><strong>Daño:</strong> 4d10 x2.</p>
+          <p><strong>Modo multifuego:</strong> ataque adicional con -4 a todos los ataques.</p>
+          <div class="tag-row">
+            <span class="tag">Hostigamiento</span>
+            <span class="tag">Cobertura</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sistemas">
+      <div class="section-title">
+        <h2>Sistemas especiales</h2>
+        <p>Lo que hace que la nave sea de Rolan y no un simple hierro cansado comprado en puerto.</p>
+      </div>
+
+      <details open>
+        <summary>Transpondedor de doble identidad</summary>
+        <div class="details-body">
+          <p>
+            La nave no lleva una identidad limpia y una falsa perfecta. Lleva dos identidades mediocres pero creíbles:
+            una como carguero secundario de suministros y otra como transporte autónomo de rutas periféricas.
+          </p>
+          <table class="compact-table">
+            <tr><th>CD 15</th><td>Control portuario rutinario.</td></tr>
+            <tr><th>CD 20</th><td>Inspección imperial administrativa.</td></tr>
+            <tr><th>CD 25</th><td>Escaneo cruzado con registros sectoriales.</td></tr>
+            <tr><th>CD 30</th><td>Revisión especializada del ISB o inteligencia naval.</td></tr>
+          </table>
+          <p>
+            Habilidades útiles: Informática, Falsificar, Astrogación, Engañar o contactos portuarios, según escena.
+          </p>
+        </div>
+      </details>
+
+      <details open>
+        <summary>Sensores discretamente mejorados</summary>
+        <div class="details-body">
+          <p>
+            No son sensores militares, pero están por encima de lo que el aspecto exterior sugiere.
+            Conceden <strong>+2 a pruebas de Informática</strong> para detectar naves, lecturas térmicas,
+            rastros de energía o inconsistencias de tráfico en alcance corto o medio.
+          </p>
+          <p>
+            Limitación: no atraviesan contramedidas militares serias, ocultación avanzada ni blancos apagados.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Blindaje parcheado selectivo</summary>
+        <div class="details-body">
+          <p>
+            No está blindada por completo. Rolan reforzó zonas concretas: acceso a cabina,
+            lateral de bodega, sección baja de motores y mamparo interior del compartimento principal.
+          </p>
+          <p>
+            Regla opcional: una vez por combate espacial, cuando un impacto cause daño al casco,
+            se puede declarar que el golpe alcanza una zona reforzada. Reduce el daño final en 10 puntos
+            adicionales después de aplicar RD. Después queda dañado y requiere Reparar CD 20 y 500 créditos en piezas.
+          </p>
+        </div>
+      </details>
+
+      <details open>
+        <summary>El Hueco Ciego</summary>
+        <div class="details-body">
+          <p>
+            Compartimento oculto situado entre el mamparo trasero de cabina y un conducto de alimentación secundaria.
+            Está protegido por una placa falsa estructural, aislamiento térmico y cierre físico oculto.
+          </p>
+          <p>
+            Sirve para chips de datos, documentación falsa, credenciales, medicación sensible, un bláster desmontado,
+            explosivos compactos o una caja pequeña que oficialmente no existe.
+          </p>
+          <table class="compact-table">
+            <tr><th>Inspección visual rápida</th><td>Buscar CD 30</td></tr>
+            <tr><th>Inspección técnica normal</th><td>Buscar o Informática CD 25</td></tr>
+            <tr><th>Escaneo térmico estándar</th><td>Informática CD 25</td></tr>
+            <tr><th>Revisión imperial exhaustiva</th><td>Buscar o Informática CD 20</td></tr>
+            <tr><th>Especialista con sospecha previa</th><td>Buscar o Informática CD 18</td></tr>
+          </table>
+          <p>
+            Apertura sin romper nada: desactivar dos líneas menores del panel auxiliar,
+            mover el balance energético a una posición incorrecta a propósito y liberar un cierre físico bajo una junta térmica.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <section id="interior">
+      <div class="section-title">
+        <h2>Interior de la nave</h2>
+        <p>Un hogar de metal cansado. Habitable, no cómodo. Suficiente, no amable.</p>
+      </div>
+
+      <div class="grid three">
+        <div class="card">
+          <h3>Cabina</h3>
+          <p>
+            Compacta, llena de mandos sustituidos y pequeñas correcciones hechas a mano.
+            Rolan sabe qué luces importan y cuáles solo dramatizan.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Compartimento común</h3>
+          <p>
+            Mesa plegable, bancos, módulo de almacenamiento y cafetera mediocre.
+            Espacio perfecto para discutir en voz baja o callarse con resentimiento.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Zona de descanso</h3>
+          <p>
+            Una litera fija doble muy justa, dos literas plegables y dos plazas improvisables
+            en bancos o suelo técnico acondicionado.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Bodega principal</h3>
+          <p>
+            Carga media, cajas tapadera, repuestos, herramientas y material sensible.
+            Puede vaciarse para evacuar personas o mover equipo urgente.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Rincón de mantenimiento</h3>
+          <p>
+            No es un taller serio, pero siempre hay alguna herramienta que puede servir
+            y algún componente que nadie sabe si aún funciona.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Acceso ventral</h3>
+          <p>
+            Útil para mantenimiento, ocultación breve o salida poco elegante durante inspecciones.
+            Nadie queda digno saliendo por ahí. A veces eso salva vidas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="averias">
+      <div class="section-title">
+        <h2>Averías y manías</h2>
+        <p>La nave no falla porque sí. Se queja con criterio.</p>
+      </div>
+
+      <div class="card">
+        <h3>Tabla rápida de desgaste</h3>
+        <p>
+          Después de una persecución, combate espacial, salto apresurado o despegue forzado,
+          el DJ puede tirar 1d20 o elegir una complicación.
+        </p>
+
+        <table class="compact-table">
+          <tr><th>1-3</th><td><strong>Vibración de ascenso.</strong> -2 a Pilotar en la siguiente maniobra atmosférica exigente hasta revisar estabilizadores. Reparar CD 15.</td></tr>
+          <tr><th>4-6</th><td><strong>Lectura térmica falsa.</strong> -2 a Informática para escaneos térmicos durante una escena. Reparar CD 15.</td></tr>
+          <tr><th>7-9</th><td><strong>Compuerta interior atascada.</strong> Abrir requiere acción completa y Fuerza CD 15 o Reparar CD 12.</td></tr>
+          <tr><th>10-12</th><td><strong>Alimentación secundaria inestable.</strong> -2 a una prueba de Reparar o Informática relacionada con sistemas internos.</td></tr>
+          <tr><th>13-15</th><td><strong>Ruido de conducto central.</strong> Sin penalizador, pero cualquiera que no conozca la nave se inquieta.</td></tr>
+          <tr><th>16-18</th><td><strong>Arranque frío lento.</strong> La nave tarda 1 asalto adicional en estar lista si estaba apagada.</td></tr>
+          <tr><th>19-20</th><td><strong>Hoy no se queja.</strong> La Marea Roja funciona con una dignidad casi ofensiva.</td></tr>
+        </table>
+      </div>
+
+      <div class="grid two" style="margin-top:16px;">
+        <div class="card">
+          <h3>Mantenimiento</h3>
+          <table class="compact-table">
+            <tr><th>Rutina mensual</th><td>300 créditos</td></tr>
+            <tr><th>Tras persecución o combate</th><td>750 créditos</td></tr>
+            <tr><th>Sistemas menores</th><td>250-500 créditos</td></tr>
+            <tr><th>Daño de casco</th><td>100 créditos por punto de casco</td></tr>
+            <tr><th>Sin preguntas</th><td>+50% al coste</td></tr>
+            <tr><th>Puerto imperial limpio</th><td>Más barato, pero deja registro</td></tr>
+          </table>
+        </div>
+
+        <div class="card warning">
+          <h3>Regla de carácter</h3>
+          <p>
+            Si pasan más de tres sesiones sin mantenimiento narrativo, el DJ puede imponer -1 a Maniobra
+            hasta que se dedique tiempo, piezas y atención a la nave.
+          </p>
+          <p>
+            La Marea Roja no exige cariño. Exige respeto técnico. Es muy distinto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="mesa">
+      <div class="section-title">
+        <h2>Uso en mesa</h2>
+        <p>Guía directa para que el jugador sepa qué puede intentar con ella.</p>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Buenas ideas</h3>
+          <ul class="checklist">
+            <li>Pasar por carguero menor sin importancia.</li>
+            <li>Detectar tráfico sospechoso antes de entrar en una zona caliente.</li>
+            <li>Esconder material sensible en El Hueco Ciego.</li>
+            <li>Cubrir la retirada con fuego defensivo.</li>
+            <li>Usar la bodega como refugio, sala de reunión o evacuación improvisada.</li>
+            <li>Mentir con papeles mediocres pero plausibles.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Malas ideas</h3>
+          <ul class="checklist">
+            <li>Enfrentarse frontalmente a cazas o patrulleras imperiales.</li>
+            <li>Confiar en el hiperimpulsor x3 como si fuera una maravilla moderna.</li>
+            <li>Dejar que cualquiera pilote la nave con brusquedad.</li>
+            <li>Disparar antes de comprobar si aún se puede mentir.</li>
+            <li>Olvidar que cada reparación en puerto deja huellas.</li>
+            <li>Convertir una nave discreta en una nave famosa.</li>
+          </ul>
+        </div>
+      </div>
+
+      <details open style="margin-top:16px;">
+        <summary>Puestos de tripulación</summary>
+        <div class="details-body">
+          <table class="compact-table">
+            <tr><th>Piloto</th><td>Decide velocidad, evasión, aproximaciones y maniobras defensivas. Normalmente Rolan.</td></tr>
+            <tr><th>Copiloto / navegante</th><td>Astrogación, apoyo al piloto y coordinación de saltos.</td></tr>
+            <tr><th>Artillero</th><td>Opera torreta dorsal, cañón ventral o cañón rotatorio.</td></tr>
+            <tr><th>Técnico / ingeniero</th><td>Reparar, redirigir energía, estabilizar escudos y mantener la nave viva.</td></tr>
+            <tr><th>Operador de sensores</th><td>Detecta tráfico, interferencias, firmas térmicas e inspecciones sospechosas.</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <div class="card note" style="margin-top:16px;">
+        <h3>Frases de mesa para Rolan</h3>
+        <p>“No es vieja. Es selectiva.”</p>
+        <p>“Si esa luz se enciende, no pasa nada. Si se apaga, entonces sí.”</p>
+        <p>“La nave no está fallando. Está negociando.”</p>
+        <p>“No dispares todavía. Una mentira sale más barata que una reparación.”</p>
+        <p>“Si oyes tres golpes, mal. Si oyes cuatro, es normal.”</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="card" id="ficha-copiable">
+        <h3>Ficha rápida copiable</h3>
+        <p class="mono">
+          LA MAREA ROJA · G9 Rigger-class light freighter modificada · Transporte espacial pequeño ·
+          Tripulación 2 · Pasajeros 5 · Capacidad real 7 personas · Carga 60 t · Consumibles 1 mes/4 personas o 2 semanas/7 personas ·
+          Hiperimpulsor x3, reserva x15 · Velocidad espacial ataque 7 casillas · Atmosférica 700 km/h ·
+          Iniciativa +3 normal / +5 Rolan · Maniobra +2 normal / +4 Rolan · Defensa 21, defensiva 23, total 25 ·
+          Escudos 50 RD 10 · Casco 140 RD 10 ·
+          Armas: blásteres pesados acoplados +7/+9, 5d10x2; bláster ventral +6/+8, 4d10x2; láser rotatorio +6/+8, 4d10x2, multifuego -4 ·
+          Sistemas: doble transpondedor, sensores +2, blindaje selectivo, bodega modular, El Hueco Ciego.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>La Marea Roja · Nave de Rolan Kaine · Campaña Eclipse</span>
+      <span>Documento de jugador · versión HTML autocontenida</span>
+    </footer>
+  </main>
+
+  <script>
+    function toggleAll(open) {
+      document.querySelectorAll("details").forEach(d => d.open = open);
+    }
+
+    function copyFicha() {
+      const text = document.querySelector("#ficha-copiable p").innerText.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        const btns = [...document.querySelectorAll("button")];
+        const b = btns.find(x => x.innerText.includes("Copiar"));
+        const old = b.innerText;
+        b.innerText = "Ficha copiada";
+        setTimeout(() => b.innerText = old, 1300);
+      }).catch(() => {
+        alert("No se ha podido copiar automáticamente. Puedes seleccionar la ficha rápida al final del documento.");
+      });
+    }
+  </script>
+</body>
 </html>
