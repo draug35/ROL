@@ -100,6 +100,10 @@ a {
   padding: 11rem 5vw 7rem;
   overflow: hidden;
   isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(218, 235, 232, 0.34), rgba(8, 9, 11, 0.15) 22%, transparent 42%),
+    radial-gradient(circle at 78% 66%, rgba(242, 179, 93, 0.22), transparent 24%),
+    linear-gradient(135deg, #030507 0%, #091116 44%, #050609 100%);
 }
 
 .hero-image,
@@ -113,6 +117,7 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .hero-shade {
