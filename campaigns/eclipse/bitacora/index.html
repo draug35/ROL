@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bitácora de la campaña Eclipse: sesiones, episodios y consecuencias.">
+    <title>Bitácora · Eclipse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/ROL/styles.css">
+    <style>
+      .episodes {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: 1fr;
+      }
+      .episode-card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(255,255,255,0.13);
+        border-radius: 16px;
+        padding: 26px clamp(22px, 4vw, 34px);
+        background: linear-gradient(150deg, rgba(17,25,36,0.92), rgba(10,15,22,0.88));
+        box-shadow: 0 22px 60px rgba(0,0,0,0.28);
+        transition: transform .16s ease, border-color .16s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .episode-card::after {
+        content: "";
+        position: absolute;
+        right: -80px;
+        top: -80px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(212,74,63,0.28), transparent 66%);
+        filter: blur(8px);
+        pointer-events: none;
+      }
+      a.episode-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(212,74,63,0.7);
+      }
+      .episode-card .num {
+        display: inline-block;
+        color: #d44a3f;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        position: relative;
+        z-index: 1;
+      }
+      .episode-card h3 {
+        margin: 12px 0 8px;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        text-transform: uppercase;
+        letter-spacing: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .episode-card p {
+        margin: 0;
+        color: #b7b0a3;
+        max-width: 760px;
+        position: relative;
+        z-index: 1;
+      }
+      .episode-card.soon {
+        opacity: 0.72;
+        cursor: default;
+      }
+      .episode-card.soon .num { color: #b7b0a3; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/ROL/" aria-label="Eclipse">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Eclipse</span>
+      </a>
+      <nav class="site-nav" aria-label="Secciones de Eclipse">
+        <a href="/ROL/#archivo">Archivo</a>
+        <a href="/ROL/campaigns/eclipse/nave/">Nave</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section-band" aria-labelledby="bitacora-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <p class="eyebrow">Archivo de campaña</p>
+            <h2 id="bitacora-title">Bitácora</h2>
+            <p class="hero-copy" style="margin-top:12px;max-width:680px;">
+              Sesiones, episodios y consecuencias. Lo que la tripulación deja a su paso y lo que el mundo
+              empieza a mover sin que nadie lo vea.
+            </p>
+          </div>
+
+          <div class="episodes">
+            <a class="episode-card" href="/ROL/campaigns/eclipse/bitacora/02-la-vida-de-los-demas.html">
+              <span class="num">Episodio 02 · Final</span>
+              <h3>La vida de los demás</h3>
+              <p>
+                Tres trenes que se alejan de la misma jugada. Kael revive su primera victoria, Tarek
+                calcula a cuánta distancia está su familia del desastre, y un guardia diligente firma
+                en el turno de noche la frase más peligrosa del día.
+              </p>
+            </a>
+
+            <div class="episode-card soon" aria-disabled="true">
+              <span class="num">Episodio 01 · Próximamente</span>
+              <h3>Por archivar</h3>
+              <p>El resumen de las primeras sesiones llegará a este archivo.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eclipse · Bitácora · Episodio 02: La vida de los demás." />
+  <title>La vida de los demás · Episodio 02 · Bitácora de Eclipse</title>
+  <style>
+    :root {
+      --bg: #070b10;
+      --panel: rgba(20, 29, 40, 0.92);
+      --panel2: rgba(14, 22, 31, 0.96);
+      --ink: #f3efe7;
+      --muted: #b7b0a3;
+      --soft: #d5c7af;
+      --red2: #d44a3f;
+      --amber: #e0a84d;
+      --cyan: #77c7d9;
+      --line: rgba(255,255,255,0.13);
+      --shadow: rgba(0,0,0,0.45);
+      --radius: 8px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(196, 53, 47, 0.28), transparent 32%),
+        radial-gradient(circle at 85% 0%, rgba(119, 199, 217, 0.10), transparent 32%),
+        linear-gradient(135deg, #05070b 0%, #0a1118 42%, #14090a 100%);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.021) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 85%);
+      z-index: 0;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    header.hero { padding: 44px 0 26px; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--soft);
+      background: rgba(255,255,255,0.045);
+      backdrop-filter: blur(8px);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button, .button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+      color: var(--ink);
+      padding: 9px 13px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    button:hover, .button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(212, 74, 63, 0.75);
+      background: rgba(169,45,45,0.22);
+    }
+
+    .title-card {
+      background: linear-gradient(150deg, rgba(17,25,36,0.92), rgba(10,15,22,0.88));
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      padding: clamp(24px, 4vw, 48px);
+      box-shadow: 0 24px 80px var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .title-card::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -90px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,74,63,0.34), transparent 66%);
+      filter: blur(8px);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.82rem;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 5.4rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      color: var(--soft);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      margin: 18px 0 0;
+      max-width: 760px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote {
+      margin-top: 26px;
+      padding: 18px 22px;
+      border-left: 4px solid var(--red2);
+      background: rgba(212, 74, 63, 0.08);
+      border-radius: 16px;
+      color: #f1dfcc;
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+
+    nav.quick {
+      margin-top: 28px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    nav.quick a {
+      color: var(--ink);
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.045);
+      font-size: 0.9rem;
+      transition: border-color .16s ease, background .16s ease;
+    }
+
+    nav.quick a:hover {
+      border-color: rgba(212,74,63,0.7);
+      background: rgba(212,74,63,0.14);
+    }
+
+    main { padding-bottom: 60px; }
+
+    .episode {
+      width: min(760px, 100%);
+      margin: 0 auto;
+    }
+
+    .part {
+      margin: 40px 0;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: 0 22px 60px rgba(0,0,0,0.28);
+      overflow: hidden;
+    }
+
+    .part-head {
+      padding: 26px clamp(22px, 4vw, 40px) 0;
+    }
+
+    .part-index {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--red2);
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .part-head h2 {
+      margin: 12px 0 4px;
+      font-size: clamp(1.5rem, 3vw, 2.05rem);
+      letter-spacing: 0;
+      line-height: 1.1;
+    }
+
+    .part-head .place {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .prose {
+      font-family: var(--serif);
+      font-size: 1.12rem;
+      line-height: 1.72;
+      color: #ece6da;
+      padding: 8px clamp(22px, 4vw, 40px) 30px;
+    }
+
+    .prose p { margin: 0 0 1.15em; }
+
+    .prose p.lead::first-letter {
+      float: left;
+      font-size: 3.4rem;
+      line-height: 0.78;
+      padding: 6px 12px 0 0;
+      color: var(--red2);
+      font-weight: 700;
+    }
+
+    .prose em { color: #f6ead2; }
+
+    .prose .said {
+      color: var(--cyan);
+      font-style: italic;
+    }
+
+    .part.anexo {
+      background: linear-gradient(150deg, rgba(20,14,14,0.96), rgba(10,9,9,0.96));
+      border-color: rgba(212, 74, 63, 0.28);
+    }
+
+    .part.anexo .part-index { color: var(--amber); }
+
+    .part.anexo .prose .mono-line {
+      font-family: var(--mono);
+      font-size: 0.96rem;
+      color: var(--amber);
+      letter-spacing: 0.02em;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 6px auto 0;
+      color: var(--muted);
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      max-width: 120px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    }
+
+    .end-mark {
+      width: min(760px, 100%);
+      margin: 10px auto 0;
+      text-align: center;
+      color: var(--soft);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.15rem;
+    }
+
+    .footer {
+      width: min(760px, 100%);
+      margin: 42px auto 0;
+      border-top: 1px solid var(--line);
+      padding: 24px 0 60px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer a { color: var(--soft); }
+
+    @media (max-width: 920px) {
+      .section-title { flex-direction: column; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 16mm; }
+      :root {
+        --ink: #111; --muted: #333; --soft: #222;
+        --line: #ccc; --shadow: transparent;
+      }
+      body { background: #fff; color: #111; font-size: 11pt; }
+      body::before, .actions, nav.quick, .footer { display: none !important; }
+      .wrap { width: 100%; margin: 0; }
+      header.hero { padding: 0 0 10px; }
+      .title-card, .part {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        background: #fff;
+        page-break-inside: avoid;
+      }
+      h1 { font-size: 30pt; }
+      .prose { color: #111; }
+      .prose .said { color: #111; }
+      .part.anexo .prose .mono-line { color: #111; }
+      a { color: #111; text-decoration: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="topbar">
+        <div class="pill">Bitácora · Eclipse</div>
+        <div class="actions">
+          <a class="button" href="/ROL/">Volver a Eclipse</a>
+          <a class="button" href="/ROL/campaigns/eclipse/bitacora/">Bitácora</a>
+          <button onclick="window.print()">Imprimir / PDF</button>
+        </div>
+      </div>
+
+      <div class="title-card">
+        <p class="eyebrow">Episodio 02 · Final</p>
+        <h1>La vida de los demás</h1>
+        <p class="subtitle">
+          Tres trenes que se alejan de la misma jugada. Kael revive una victoria, Tarek calcula a cuánta
+          distancia está su familia del desastre, y en el turno de noche un guardia diligente firma, sin saberlo,
+          la frase más peligrosa del día.
+        </p>
+        <div class="quote">
+          Fuera, la ciudad sigue encendida, millones de ventanas, millones de vidas ajenas e intactas.
+        </div>
+        <nav class="quick">
+          <a href="#parte-1">I · Kael y Rolan</a>
+          <a href="#parte-2">II · Tarek</a>
+          <a href="#anexo">Anexo 44-K</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <article class="episode">
+
+      <section class="part" id="parte-1">
+        <div class="part-head">
+          <span class="part-index">Parte I</span>
+          <h2>Línea 7, dirección muelles</h2>
+          <p class="place">Kael y Rolan.</p>
+        </div>
+        <div class="prose">
+          <p class="lead">La bolsa está a sus pies. Dentro, el cartucho de información que vale una nave y una identidad. Rolan lo ha colocado entre sus botas, no porque alguien vaya a robarlo, sino porque necesita sentir el peso contra los tobillos, comprobar cada pocos segundos que sigue ahí. Es un gesto de viejo soldado y lo sabe. Lo odia y no puede parar.</p>
+
+          <p>Mira el reflejo de los dos en el cristal negro de la ventana. Un hombre mayor de lo que querría y un crío que aún huele a adrenalina. Detrás de sus caras, la ciudad pasa rauda mientras comienza a caer la tarde: ventanas encendidas, miles de ellas, cada una con alguien dentro trabajando, discutiendo, durmiendo, sin saber nada. <em>Vidas normales</em>, piensa Rolan. <em>Gente que mañana se levantará y el peor problema que tendrá será un turno largo.</em> Él tuvo una de esas vidas. Le costó treinta años de servicio, una rodilla, un matrimonio y un hijo que ahora lleva el mismo uniforme que él aprendió a despreciar. Lo único que había salvado del naufragio era esto: su nave, su ruta, no deberle nada a nadie. Poder largarse de cualquier sitio en cualquier momento. <em>Independencia. Libertad.</em> La palabra le sabe a ceniza ahora, porque acaba de entender, con la claridad fría que da el cansancio, que ya no la tiene. Que en algún momento de las últimas semanas dejó de ser un hombre que pasaba por los sitios y se convirtió en un hombre al que buscan. No lo eligió. Eso es lo que más le revuelve: no haberlo <em>elegido</em>. Le arrastraron. Un crío que pegó a un oficial, un niño dentro de una cápsula, una puerta que se abrió cuando no debía, y de pronto Rolan Kaine, que no creía en nada, lleva una bomba de datos entre los pies que no sabe dónde, cuándo ni a quién le puede explotar.</p>
+
+          <p>A su lado, Kael no para quieto. Le tiembla la pierna, un golpeteo nervioso contra el suelo del vagón, y tiene los ojos demasiado abiertos. Pero no es miedo lo que Rolan ve cuando lo mira de reojo. Es otra cosa, y le preocupa más que el miedo.</p>
+
+          <p>Es <em>brillo</em>.</p>
+
+          <p>El chico está reviviéndolo. Lo ve en cómo mueve los labios sin hablar, repasando la jugada: el funcionario que manipuló rápidamente la información en la terminal para conseguir mover los engranajes, los soldados primero apresando y después soltando a la mujer, todos cruzando la puerta sin un disparo. Para Kael no ha sido una huida. Ha sido una <em>victoria</em>. La primera de su vida en la que hacer lo correcto no terminó con él en el suelo. Diecinueve años creyendo que la dignidad siempre llega tarde, que cuando te plantas ya has perdido algo — y hoy, por una vez, se plantó y <em>ganó</em>. Tiene grabado el momento en que el dato salió del terminal como otros tienen grabado un primer beso.</p>
+
+          <p>—Lo hicimos —murmura Kael, sin mirarlo. No es una pregunta. Es casi una plegaria—. Sin disparar. <em>Lo hicimos.</em></p>
+
+          <p>Rolan no contesta enseguida. Mira la bolsa entre sus pies.</p>
+
+          <p>—Hicimos algo —dice por fin—. Aún no sé qué.</p>
+
+          <p>Kael sonríe, y es una sonrisa de crío, ancha, imposible de contener. Quiere más. Rolan se lo nota en la cara y se le encoge algo por dentro, porque conoce esa sonrisa: es la de los que aún no han enterrado a nadie. Estuvo a punto de decírselo. De decirle <em>esto no es un juego, no se gana, solo se sobrevive a cada noche</em>. Pero el chico necesita esta noche. Mañana ya aprenderá. Mañana siempre llega.</p>
+
+          <p>En lugar de eso, Rolan piensa en Nimra. Y se da cuenta, con una punzada, de que Kael también está pensando en ella —ha mirado dos veces el comunicador, lo ha vuelto a guardar—. ¿Seguirá en El Sitio cuando lleguen? ¿O habrá hecho lo más sensato, lo único sensato, que es desaparecer antes de que esto la salpique? Ninguno de los dos lo dice. Pero los dos calculan lo mismo en silencio: que la única persona que le queda del mundo de antes a Kael puede que ya no esté cuando vuelvan. Que la ratonera en la que han entrado tiene dueño, y que no le han visto la cara.</p>
+
+          <p>El tren frena. Una estación más. Suben dos operarios, baja una mujer con un crío dormido en brazos. La vida de los demás, entrando y saliendo, ajena, intacta.</p>
+
+          <p>Rolan vuelve a tocar la bolsa con el tobillo.</p>
+
+          <p>Sigue ahí.</p>
+        </div>
+      </section>
+
+      <section class="part" id="parte-2">
+        <div class="part-head">
+          <span class="part-index">Parte II</span>
+          <h2>Línea 12, dirección residencial</h2>
+          <p class="place">Tarek, de pie.</p>
+        </div>
+        <div class="prose">
+          <p class="lead">Tarek no se ha sentado. Hay asientos libres, pero no puede. Va de pie, agarrado a la barra, la frente casi tocando el cristal de la puerta trasera, mirando hacia atrás. Hacia las estaciones que ya han quedado vacías. Por si la ve. Sabe que no va a verla —Maela se bajó hace tres paradas, esto va más rápido de lo que su cabeza puede procesar el problema, se la tragó la multitud, se fue a buscar a un hombre por el que prefirió no salvarse— pero sigue mirando, porque mirar hacia atrás es lo único que puede hacer con las manos y con los ojos mientras la cabeza intenta cuadrar el siguiente paso posible.</p>
+
+          <p><em>¿Cómo he llegado aquí?</em></p>
+
+          <p>La pregunta no es retórica. Tarek es un hombre que lee patrones, que encuentra el punto exacto donde una cosa se conecta con otra, y ahora aplica esa misma máquina mental sobre su propia vida y no le gusta el resultado. Rastrea hacia atrás: el tren, la mujer soltada, el cartucho, la galería, la firma, Aleris, el niño, Elan susurrándole hace años <span class="said">"mira esto, Tarek, solo mira"</span>. Cada eslabón llevaba al siguiente con una lógica administrativa perfecta, impecable, <em>suya</em>. No hubo ningún momento en que decidiera ser esto. Solo hubo una sucesión de pasos razonables, prudentes, y al final del pasillo de pasos razonables estaba <em>esto</em>: un funcionario en un tren con las manos limpias y el alma sucia, calculando a cuánta distancia está su familia del desastre.</p>
+
+          <p>Porque eso es lo que de verdad le aplasta en este instante, con una sensación que ha ido creciendo desde hace tiempo, pero a la vez con un retraso que le da náuseas. Hizo su trabajo <em>demasiado</em> bien. Borró sus huellas en el sistema con un cuidado de orfebre, es realmente bueno en eso, siempre lo ha sido; nadie, repasando los registros del 44-K, encontrará la mano de Tarek Jenson. Está a salvo en los papeles. Y los papeles no sirven de nada, porque hay una mujer ahí fuera, caminando hacia su marido por una ciudad que la va a tragar, que vio su cara. Que sabe su nombre. Que, sentada bajo una lámpara en una sala sin ventanas, con la voz cansada de alguien como Brenn al otro lado de la mesa, tarde o temprano dirá <em>Jenson</em>. No por traición. Por agotamiento. Todo el mundo lo dice, al final, está seguro.</p>
+
+          <p>Y cuando lo diga, irán a la casa. A <em>su</em> casa.</p>
+
+          <p>Tarek piensa en Marien. En la mentira de la cena —<span class="said">"todo bien, lo de siempre, papeleo, nada importante"</span>— y en cómo ella lo miró un segundo de más, porque Marien no es tonta, Marien teme el desorden más que al Imperio y lleva semanas oliendo el desorden entrar por debajo de la puerta de su matrimonio. Piensa en Davin, dieciséis años, que ya lo mira raro. En Lira, que nota la tensión sin entenderla. Les dejó dinero esta mañana, escondido, como si el dinero fuera a servir de algo, como si pudiera comprar minutos contra una máquina que no necesita dinero. Estuvo dispuesto a dejarlos. A subirse a esa nave con la mujer y desaparecer y mandarles credenciales falsas desde el exilio. Y Maela —<em>Maela</em>, a la que apenas conoce, que le salvó la operación tecleando, que no le debía nada— se negó a irse sin su marido. Y al hacerlo le devolvió a Tarek, sin pretenderlo, el espejo más cruel: <em>mira, esto es lo que es amar a alguien y no abandonarlo. ¿Tú ibas a hacer lo contrario?</em></p>
+
+          <p>El cristal le devuelve su cara. Un hombre correcto, de mediana edad, con buen abrigo. La cara de alguien que paga sus impuestos y saluda a los vecinos. La cara perfecta. La cara que ya no le sirve para nada.</p>
+
+          <p>Tarek no se mueve cuando las puertas se abren en la siguiente parada.</p>
+
+          <p>Se queda mirando el andén vacío, el rótulo con el nombre de una estación que reconoce, la vida que le espera a tres metros y que quizá ya no puede vivir. Una voz automática, serena, indiferente, llena el vagón:</p>
+
+          <p class="said">"Puertas cerrándose. Permanezcan alejados del borde."</p>
+
+          <p>Y Tarek Jenson, por primera vez en veinte años de funcionario impecable, no sabe si bajarse.</p>
+        </div>
+      </section>
+
+      <div class="divider" aria-hidden="true">✦</div>
+
+      <section class="part anexo" id="anexo">
+        <div class="part-head">
+          <span class="part-index">Anexo 44-K</span>
+          <h2>Turno de noche</h2>
+          <p class="place">Un guardia.</p>
+        </div>
+        <div class="prose">
+          <p class="lead">El edificio de día es una colmena. De noche es otra cosa: pasillos vacíos, la mitad de las luces en modo ahorro, el zumbido de los servidores que nadie apaga nunca. Los archivos no duermen. La gente sí, pero los archivos no.</p>
+
+          <p>En un puesto de control del nivel administrativo, un hombre joven —se llama Veil, aunque eso no importará nunca a nadie— termina su ronda de cierre. Lleva ocho meses en el puesto. Es de los que llegan cinco minutos antes y se van cinco minutos tarde, no por ambición, sino porque le enseñaron que un trabajo bien hecho es una forma de ser alguien. Tiene una taza de café que está fría y una pantalla con la lista de incidencias del día, que debe revisar, marcar como conformes y archivar antes de fichar la salida. Es lo último que hace cada noche. Suele llevarle diez minutos. Casi todo está siempre en orden.</p>
+
+          <p>Baja por la lista. Validaciones. Tránsitos. Una intervención técnica externa en la línea C-17 —resuelta, cerrada, conforme—. Una comparecencia de discrepancia documental —cerrada, conforme—. El dedo de Veil se mueve solo, marcando casillas, el gesto de quien ha hecho esto trescientas veces.</p>
+
+          <p>Y entonces se detiene.</p>
+
+          <p>No por nada importante realmente. Una línea pequeña, casi al final. Una orden de reubicación de personal.</p>
+
+          <p class="mono-line">Tann, Maela. Retención preventiva: 14:43. Liberación: 14:57.</p>
+
+          <p>Veil la lee dos veces. Frunce el ceño, no por sospecha —aún no—, sino por esa incomodidad física que sienten los meticulosos cuando un número no encaja. Diez minutos. Una reubicación preventiva que se ordena, se ejecuta y se <em>revoca</em> en diez minutos. Eso no se hace. Las reubicaciones no se deshacen; por eso son preventivas. Una vez que el sistema decide recoger a alguien, ese alguien va al pozo y no vuelve a su mesa esa misma tarde como si tal cosa.</p>
+
+          <p>Busca el justificante de la liberación. No hay. Hay una autorización —válida, con su código, todo en regla— pero el campo del motivo está vacío. Alguien autorizó soltarla y no escribió por qué. Veil conoce ese vacío: es el hueco que deja la gente que tiene prisa, o autoridad, o las dos cosas. Pero el sistema no perdona los huecos. El sistema, tarde o temprano, pregunta.</p>
+
+          <p>Mira la hora. Las once y cuarto de la noche. Su turno acabó hace once minutos.</p>
+
+          <p>Y ahí, ese momento, ese único momento en el que podría cerrarlo. Marcar la casilla de <em>conforme</em>, como ha hecho con las otras cuarenta, apagar la pantalla, recoger la taza fría, bajar al tren, irse a casa a dormir con su novia. Nadie lo sabría jamás. Nadie le pediría cuentas por una discrepancia de diez minutos en la reubicación de una analista de tránsitos de la que nadie ha vuelto a acordarse. El mundo entero, esta noche, le ofrece a Veil la salida más tranquila, la misma que el mundo le ofrece a todos, todas las noches: <em>no es asunto tuyo, vete a casa, no tiene importancia.</em></p>
+
+          <p>Pero Veil es de los diligentes. Esa es su virtud, y va a ser la perdición de gente que él no conocerá nunca.</p>
+
+          <p>Mueve el cursor. Abre el desplegable. Y en lugar de <em>conforme</em>, marca: <strong>"Anomalía. Elevar a revisión de seguridad."</strong></p>
+
+          <p>Escribe, en el campo de observaciones, con dos dedos, sin dramatismo, la frase más peligrosa del día:</p>
+
+          <p class="mono-line">"Liberación sin motivo registrado. Pendiente de revisión."</p>
+
+          <p>Pulsa enviar.</p>
+
+          <p>En algún lugar del edificio, un servidor recibe la marca y la enruta hacia arriba, hacia una bandeja de revisión que un analista abrirá mañana, o pasado, o la semana que viene.</p>
+
+          <p>Veil no siente nada especial. Ni siquiera se da cuenta de que ha hecho algo. Apaga la pantalla. La oficina queda a oscuras salvo por el piloto rojo del servidor, parpadeando despacio. Coge la taza fría, hace una mueca, la deja otra vez. Se pone el abrigo.</p>
+
+          <p>Baja al andén. El último tren de la línea lo recoge casi vacío. Veil se sienta, apoya la cabeza en el cristal y cierra los ojos un momento, cansado, satisfecho de un trabajo bien hecho. Mañana volverá a llegar cinco minutos antes.</p>
+
+          <p>Fuera, la ciudad sigue encendida, millones de ventanas, millones de vidas ajenas e intactas.</p>
+
+          <p>Y dentro de la máquina, en silencio, sin odio, sin prisa y sin rostro, algo acaba de empezar a moverse en dirección a una casa con dos niños.</p>
+        </div>
+      </section>
+
+      <p class="end-mark">Fin del episodio 02.</p>
+    </article>
+
+    <footer class="footer">
+      <span>Bitácora de Eclipse · Episodio 02 · «La vida de los demás»</span>
+      <span><a href="/ROL/campaigns/eclipse/bitacora/">Volver a la bitácora</a></span>
+    </footer>
+  </main>
+</body>
+</html>
