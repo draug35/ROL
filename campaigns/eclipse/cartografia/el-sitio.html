@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eclipse · Cartografía · El Sitio: taller clandestino donde se repara La Marea Roja." />
+  <title>El Sitio · Cartografía de Eclipse</title>
+  <style>
+    :root {
+      --bg: #070b10;
+      --panel: rgba(20, 29, 40, 0.92);
+      --panel2: rgba(14, 22, 31, 0.96);
+      --ink: #f3efe7;
+      --muted: #b7b0a3;
+      --soft: #d5c7af;
+      --red2: #d44a3f;
+      --amber: #e0a84d;
+      --cyan: #77c7d9;
+      --line: rgba(255,255,255,0.13);
+      --shadow: rgba(0,0,0,0.45);
+      --radius: 8px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(196, 53, 47, 0.28), transparent 32%),
+        radial-gradient(circle at 85% 0%, rgba(119, 199, 217, 0.10), transparent 32%),
+        linear-gradient(135deg, #05070b 0%, #0a1118 42%, #14090a 100%);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.021) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 85%);
+      z-index: 0;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    header.hero { padding: 44px 0 26px; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--soft);
+      background: rgba(255,255,255,0.045);
+      backdrop-filter: blur(8px);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+
+    .button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+      color: var(--ink);
+      padding: 9px 13px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(212, 74, 63, 0.75);
+      background: rgba(169,45,45,0.22);
+    }
+
+    .title-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .title-card {
+      background: linear-gradient(150deg, rgba(17,25,36,0.92), rgba(10,15,22,0.88));
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      padding: clamp(24px, 4vw, 42px);
+      box-shadow: 0 24px 80px var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .title-card::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -90px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,74,63,0.34), transparent 66%);
+      filter: blur(8px);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.82rem;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 8vw, 5.8rem);
+      line-height: 0.88;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      color: var(--soft);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      margin: 18px 0 0;
+      max-width: 760px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote {
+      margin-top: 26px;
+      padding: 18px 22px;
+      border-left: 4px solid var(--red2);
+      background: rgba(212, 74, 63, 0.08);
+      border-radius: 16px;
+      color: #f1dfcc;
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    nav.quick { margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; position: relative; z-index: 1; }
+
+    nav.quick a {
+      color: var(--ink);
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.045);
+      font-size: 0.9rem;
+      transition: border-color .16s ease, background .16s ease;
+    }
+
+    nav.quick a:hover { border-color: rgba(212,74,63,0.7); background: rgba(212,74,63,0.14); }
+
+    .place-photo {
+      background:
+        linear-gradient(180deg, rgba(7, 11, 16, 0.02), rgba(7, 11, 16, 0.78)),
+        #080b0f;
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      box-shadow: 0 24px 80px var(--shadow);
+      min-height: 360px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .place-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+    }
+
+    .place-photo .photo-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 28px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 14px, transparent 14px 28px),
+        radial-gradient(circle at 30% 20%, rgba(224,168,77,0.12), transparent 40%);
+    }
+
+    .place-photo .callout {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      left: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius);
+      background: rgba(6, 9, 13, 0.72);
+      backdrop-filter: blur(10px);
+      color: var(--muted);
+      font-size: 0.92rem;
+      z-index: 2;
+    }
+
+    main { padding-bottom: 60px; }
+
+    .section-title { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 44px 0 14px; }
+    .section-title h2 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.4rem); letter-spacing: 0; }
+    .section-title p { margin: 0; color: var(--muted); max-width: 560px; text-align: right; }
+
+    .readaloud {
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      line-height: 1.7;
+      color: #ece6da;
+      border-left: 4px solid var(--amber);
+      background: rgba(224, 168, 77, 0.07);
+      border-radius: 16px;
+      padding: 22px 26px;
+    }
+
+    .sign {
+      margin: 18px 0 0;
+      text-align: center;
+      font-family: var(--mono);
+      letter-spacing: 0.06em;
+      color: var(--amber);
+      text-transform: uppercase;
+      font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+      line-height: 1.5;
+      padding: 22px;
+      border: 1px dashed rgba(224,168,77,0.5);
+      border-radius: var(--radius);
+      background: rgba(224,168,77,0.05);
+    }
+
+    .grid { display: grid; gap: 16px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.23);
+    }
+
+    .card h3 { margin: 0 0 4px; font-size: 1.12rem; letter-spacing: 0; }
+    .card .role { color: var(--cyan); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .card p { margin: 10px 0 0; color: var(--muted); }
+
+    .card.person { position: relative; overflow: hidden; }
+    .card.person::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: linear-gradient(var(--red2), transparent);
+    }
+    .card.person h3 { padding-left: 6px; }
+
+    .person-quote {
+      margin-top: 12px;
+      font-family: var(--serif);
+      font-style: italic;
+      color: #e9d9bf;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 12px;
+    }
+
+    .compact-table { width: 100%; border-collapse: collapse; border-radius: 16px; overflow: hidden; font-size: 0.96rem; }
+    .compact-table th, .compact-table td { border-bottom: 1px solid rgba(255,255,255,0.11); padding: 11px 12px; vertical-align: top; text-align: left; }
+    .compact-table th { width: 34%; color: var(--soft); font-weight: 800; background: rgba(255,255,255,0.035); }
+    .compact-table tr:last-child th, .compact-table tr:last-child td { border-bottom: 0; }
+
+    .note { border-left: 4px solid var(--amber); background: rgba(224, 168, 77, 0.08); color: #f2dfbd; }
+    .warning { border-left: 4px solid var(--red2); background: rgba(212, 74, 63, 0.085); color: #f0d6d2; }
+
+    .footer {
+      margin-top: 42px;
+      border-top: 1px solid var(--line);
+      padding: 24px 0 60px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .footer a { color: var(--soft); }
+
+    @media (max-width: 920px) {
+      .title-grid, .grid.two, .grid.three { grid-template-columns: 1fr; }
+      .section-title { align-items: start; flex-direction: column; }
+      .section-title p { text-align: left; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="topbar">
+        <div class="pill">Cartografía · Eclipse</div>
+        <div class="actions">
+          <a class="button" href="/ROL/">Volver a Eclipse</a>
+          <a class="button" href="/ROL/campaigns/eclipse/cartografia/">Cartografía</a>
+        </div>
+      </div>
+
+      <div class="title-grid">
+        <div class="title-card">
+          <p class="eyebrow">Periferia · Puerto-sombra</p>
+          <h1>El Sitio</h1>
+          <p class="subtitle">
+            Un taller clandestino enorme, hundido en una cavidad de duracero oxidado. Aquí remolcaron a
+            La Marea Roja para repararla. No es un refugio: es un lugar <em>conocido</em>, que puede
+            evaporarse en dos horas si alguien habla.
+          </p>
+          <div class="quote">
+            «Si vuela, no se toca. Si no vuela, no preguntes de dónde ha salido.»
+          </div>
+          <nav class="quick">
+            <a href="#estampa">La estampa</a>
+            <a href="#ficha">Ficha</a>
+            <a href="#gente">La gente</a>
+            <a href="#mesa">Para el DJ</a>
+          </nav>
+        </div>
+
+        <aside class="place-photo" aria-label="Imagen de El Sitio">
+          <img src="assets/el-sitio.png" alt="El Sitio: taller clandestino con La Marea Roja en reparación, lámparas colgantes y el letrero pintado a mano." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback" style="display:none;">
+            Imagen pendiente · coloca <code>assets/el-sitio.png</code> para ver el taller con La Marea Roja en reparación.
+          </div>
+          <div class="callout">
+            <strong>Primera impresión:</strong> piezas de naves apiladas como huesos de animales gigantes,
+            droides entre chispazos azules y tuberías que sudan vapor. Nadie te mira más de un segundo.
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="estampa">
+      <div class="section-title">
+        <h2>La estampa</h2>
+        <p>Descripción leíble en mesa cuando la tripulación entra remolcada.</p>
+      </div>
+
+      <div class="readaloud">
+        El taller está hundido en duracero oxidado: lámparas colgantes, piezas de naves apiladas como huesos
+        de animales gigantes, droides entre chispazos azules, tuberías que sudan vapor. Nadie os mira más de
+        un segundo. Al fondo, sobre una compuerta, pintado a mano:
+      </div>
+
+      <p class="sign">
+        Si vuela, no se toca.<br>
+        Si no vuela, no preguntes de dónde ha salido.
+      </p>
+    </section>
+
+    <section id="ficha">
+      <div class="section-title">
+        <h2>Ficha del lugar</h2>
+        <p>Lo que la tripulación sabe nada más llegar.</p>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <table class="compact-table">
+            <tr><th>Qué es</th><td>Taller clandestino de reparación de naves</td></tr>
+            <tr><th>Dónde</th><td>Puerto-sombra de la periferia, fuera de Aleris-9</td></tr>
+            <tr><th>Cómo llegaron</th><td>Huyendo de Aleris, con un contacto de Rolan</td></tr>
+            <tr><th>Estado</th><td>Conocido, no seguro</td></tr>
+            <tr><th>Quién manda</th><td>Vexa Rill, jefa de taller</td></tr>
+          </table>
+        </div>
+
+        <div class="card warning">
+          <h3>Por qué importa</h3>
+          <p>
+            Han llegado a alguna parte, pero no a un refugio heroico: a un sitio que puede desaparecer
+            en dos horas si alguien habla. La Marea Roja vuela, pero el transpondedor limpio no aguanta
+            una inspección a fondo y hay daño en sistemas secundarios. No es una cadena lo que los ata
+            aquí: es física. Están a medio reparar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gente">
+      <div class="section-title">
+        <h2>La gente de El Sitio</h2>
+        <p>Quién te arregla la nave, quién te cobra el favor y quién se queda.</p>
+      </div>
+
+      <div class="grid three">
+        <div class="card person">
+          <p class="role">Jefa de taller</p>
+          <h3>Vexa Rill</h3>
+          <p>
+            Unos cincuenta años, manos quemadas, sin ideología. Odia al Imperio por una razón concreta:
+            convierte a la gente en piezas. Directa, sin sentimentalismo, buena en lo suyo.
+          </p>
+          <p class="person-quote">
+            «Podéis marcharos ahora. Al primer control quizá lleguéis. Al segundo no apostaría ni mi
+            peor llave inglesa.»
+          </p>
+        </div>
+
+        <div class="card person">
+          <p class="role">Droide · alivio cómico</p>
+          <h3>Gema (G-3M)</h3>
+          <p>
+            Cascarrabias, lengua afilada, diagnósticos demoledores. El contrapunto que hace falta cuando
+            todo lo demás aprieta.
+          </p>
+          <p class="person-quote">
+            «Diagnóstico: la nave ha sobrevivido por terquedad, negligencia y decisiones que prefiero
+            no registrar.»
+          </p>
+        </div>
+
+        <div class="card person">
+          <p class="role">Contacto de El Eje</p>
+          <h3>Sib Oren</h3>
+          <p>
+            Delgado, cansado, ropa civil neutra, ojos que buscan salidas. Trae el trato: El Eje termina
+            la nave, limpia el transpondedor y da identidades nuevas. A cambio, un trabajo en Coruscant.
+          </p>
+          <p class="person-quote">
+            «No os estamos contratando. Estamos viendo si merece la pena seguir invirtiendo en vosotros.
+            […] Os pedimos que miréis si vuestro nombre ya está en la lista de alguien.»
+          </p>
+        </div>
+      </div>
+
+      <div class="card note" style="margin-top:16px;">
+        <h3>Y Nimra se queda</h3>
+        <p>
+          Cuando El Eje localiza a la tripulación, Nimra se baja de la aventura: se queda en El Sitio.
+          Es la única persona del mundo de antes que le queda a Kael, y a partir de aquí El Sitio es
+          también el lugar al que él teme volver y no encontrarla.
+        </p>
+      </div>
+    </section>
+
+    <section id="mesa">
+      <div class="section-title">
+        <h2>Para el DJ</h2>
+        <p>Cómo usar El Sitio sin que deje de doler.</p>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Qué es El Sitio en la trama</h3>
+          <ul style="margin:8px 0 0; padding-left:18px; color:var(--muted);">
+            <li>El punto donde se repara La Marea Roja tras la huida de Aleris.</li>
+            <li>El escenario del trato con El Eje (Sib Oren) que arrastra a la tripulación a Coruscant.</li>
+            <li>Un no-refugio: utilidad, deuda y prisa, nunca seguridad.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Tono</h3>
+          <p>
+            Ruido de taller, vapor, chispas azules y gente que prefiere no saber. La calma es de tregua,
+            no de paz. Todo el mundo aquí sobrevive mirando hacia otro lado, y eso incluye a quien te ayuda.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>El Sitio · Cartografía · Campaña Eclipse</span>
+      <span><a href="/ROL/campaigns/eclipse/cartografia/">Volver a la cartografía</a></span>
+    </footer>
+  </main>
+</body>
+</html>
